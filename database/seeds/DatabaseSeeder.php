@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
         $faker = Factory::create();
 
         // Create 20 product fake records
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 15; $i++) {
             Product::create([
-                'title' => $faker->title,
+                'title' => $faker->sentence(3),
                 'description' => $faker->paragraph,
                 'price' => $faker->randomNumber(2),
                 'availability' => $faker->boolean(50)
