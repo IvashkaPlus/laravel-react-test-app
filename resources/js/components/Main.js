@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Product from "./Product";
 
 export default class Main extends Component {
-    constructor() {
 
+    constructor() {
         super();
         this.state = {
             products: [],
+            currentProduct: null
         }
     }
 
@@ -23,19 +25,29 @@ export default class Main extends Component {
     renderProducts() {
         return this.state.products.map(product => {
             return (
-                <li key={product.id} >
+                <li onClick={
+                    () =>this.handleClick(product)} key={product.id} >
                     { product.title }
                 </li>
             );
         })
     }
 
+    handleClick(product) {
+        this.setState({currentProduct:product});
+    }
+
     render() {
         return (
             <div>
-                <ul>
-                    { this.renderProducts() }
-                </ul>
+                <div>
+                    <h3> All products </h3>
+                    <ul>
+                        { this.renderProducts() }
+                    </ul>
+                </div>
+
+                <Product product={this.state.currentProduct} />
             </div>
 
         );
