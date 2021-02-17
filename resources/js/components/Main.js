@@ -2,19 +2,42 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 export default class Main extends Component {
+    constructor() {
+
+        super();
+        this.state = {
+            products: [],
+        }
+    }
+
+    componentDidMount() {
+        fetch('/api/products')
+            .then(response => {
+                return response.json();
+            })
+            .then(products => {
+                this.setState({ products });
+            });
+    }
+
+    renderProducts() {
+        return this.state.products.map(product => {
+            return (
+                <li key={product.id} >
+                    { product.title }
+                </li>
+            );
+        })
+    }
+
     render() {
         return (
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-md-8">
-                        <div className="card">
-                            <div className="card-header">Example Component</div>
-
-                            <div className="card-body">I'm an example component!</div>
-                        </div>
-                    </div>
-                </div>
+            <div>
+                <ul>
+                    { this.renderProducts() }
+                </ul>
             </div>
+
         );
     }
 }
